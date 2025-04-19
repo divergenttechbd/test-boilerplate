@@ -1,0 +1,771 @@
+Apologies for missing the directory structure in my previous response. Let's correct that and provide the full `constants/` directory structure along with additional real-world constants that could be useful.
+
+---
+
+### **Directory Structure:**
+
+```
+src/
+├── constants/
+│   ├── http-status-codes.constant.ts
+│   ├── roles.constant.ts
+│   ├── config.constant.ts
+│   ├── message.constant.ts
+│   ├── pagination.constant.ts
+│   ├── environment.constant.ts
+│   ├── email-templates.constant.ts
+│   ├── file-types.constant.ts
+│   ├── currency.constant.ts
+│   └── constants.module.ts
+```
+
+---
+
+### **1. `http-status-codes.constant.ts`**
+
+**Purpose:**
+- Define HTTP status codes as constants for better readability and reusability across the application.
+
+**Example Use:**
+```ts
+export const HttpStatusCodes = {
+  OK: 200,
+  CREATED: 201,
+  ACCEPTED: 202,
+  NO_CONTENT: 204,
+  BAD_REQUEST: 400,
+  UNAUTHORIZED: 401,
+  FORBIDDEN: 403,
+  NOT_FOUND: 404,
+  INTERNAL_SERVER_ERROR: 500,
+};
+```
+
+**Use Case:**
+- When sending HTTP responses, use these constants for consistent status codes.
+
+**Example Code:**
+```ts
+import { HttpStatusCodes } from 'constants/http-status-codes.constant';
+
+const response = {
+  status: HttpStatusCodes.OK,
+  message: 'Request was successful',
+};
+```
+
+---
+
+### **2. `roles.constant.ts`**
+
+**Purpose:**
+- Define user roles (e.g., Admin, User) for role-based access control (RBAC) and permission checks.
+
+**Example Use:**
+```ts
+export const UserRoles = {
+  ADMIN: 'admin',
+  USER: 'user',
+  MODERATOR: 'moderator',
+  GUEST: 'guest',
+};
+```
+
+**Use Case:**
+- This constant helps in restricting access based on the user's role.
+
+**Example Code:**
+```ts
+import { UserRoles } from 'constants/roles.constant';
+
+if (user.role === UserRoles.ADMIN) {
+  // Allow access to admin dashboard
+}
+```
+
+---
+
+### **3. `config.constant.ts`**
+
+**Purpose:**
+- Define configuration-related constants, such as API versions, environment values, and URLs.
+
+**Example Use:**
+```ts
+export const ConfigConstants = {
+  ENVIRONMENT: process.env.NODE_ENV || 'development',
+  API_VERSION: 'v1',
+  BASE_URL: process.env.BASE_URL || 'http://localhost:3000',
+};
+```
+
+**Use Case:**
+- To avoid hardcoding URLs and other config values multiple times, use these constants to reference them.
+
+**Example Code:**
+```ts
+import { ConfigConstants } from 'constants/config.constant';
+
+const apiUrl = `${ConfigConstants.BASE_URL}/api/${ConfigConstants.API_VERSION}`;
+```
+
+---
+
+### **4. `message.constant.ts`**
+
+**Purpose:**
+- Store standard messages for success, error, validation, and other user-facing outputs.
+
+**Example Use:**
+```ts
+export const Messages = {
+  SUCCESS: 'Operation completed successfully.',
+  ERROR: 'An unexpected error occurred.',
+  INVALID_INPUT: 'Invalid input data provided.',
+  USER_NOT_FOUND: 'User not found.',
+  UNAUTHORIZED_ACCESS: 'Unauthorized access attempt.',
+};
+```
+
+**Use Case:**
+- Helps to maintain consistent messages for API responses and UI feedback.
+
+**Example Code:**
+```ts
+import { Messages } from 'constants/message.constant';
+
+const response = {
+  status: 'success',
+  message: Messages.SUCCESS,
+};
+```
+
+---
+
+### **5. `pagination.constant.ts`**
+
+**Purpose:**
+- Define constants related to pagination, such as the default and maximum page sizes.
+
+**Example Use:**
+```ts
+export const PaginationConstants = {
+  DEFAULT_PAGE_SIZE: 10,
+  MAX_PAGE_SIZE: 100,
+};
+```
+
+**Use Case:**
+- Helps to manage paginated data across the application.
+
+**Example Code:**
+```ts
+import { PaginationConstants } from 'constants/pagination.constant';
+
+const pageSize = request.query.pageSize || PaginationConstants.DEFAULT_PAGE_SIZE;
+```
+
+---
+
+### **6. `environment.constant.ts`**
+
+**Purpose:**
+- Define constants that change depending on the environment (e.g., dev, production).
+
+**Example Use:**
+```ts
+export const EnvironmentConstants = {
+  DEVELOPMENT_API_URL: 'http://dev.api.example.com',
+  PRODUCTION_API_URL: 'http://api.example.com',
+  DATABASE_URL: process.env.DATABASE_URL,
+};
+```
+
+**Use Case:**
+- Dynamically change configuration based on the environment the application is running in.
+
+**Example Code:**
+```ts
+import { EnvironmentConstants } from 'constants/environment.constant';
+
+const apiUrl =
+  process.env.NODE_ENV === 'production'
+    ? EnvironmentConstants.PRODUCTION_API_URL
+    : EnvironmentConstants.DEVELOPMENT_API_URL;
+```
+
+---
+
+### **7. `email-templates.constant.ts`**
+
+**Purpose:**
+- Store constant values for email templates, including subject lines and body content.
+
+**Example Use:**
+```ts
+export const EmailTemplates = {
+  WELCOME_SUBJECT: 'Welcome to our platform!',
+  PASSWORD_RESET_SUBJECT: 'Password Reset Request',
+  WELCOME_BODY: 'Hello {{username}}, welcome to our platform!',
+  PASSWORD_RESET_BODY: 'Click here to reset your password: {{resetLink}}',
+};
+```
+
+**Use Case:**
+- These constants are used when sending templated emails to users.
+
+**Example Code:**
+```ts
+import { EmailTemplates } from 'constants/email-templates.constant';
+
+const emailSubject = EmailTemplates.WELCOME_SUBJECT;
+const emailBody = EmailTemplates.WELCOME_BODY.replace('{{username}}', user.name);
+```
+
+---
+
+### **8. `file-types.constant.ts`**
+
+**Purpose:**
+- Define allowed file types for uploads.
+
+**Example Use:**
+```ts
+export const AcceptedFileTypes = {
+  IMAGE: ['image/jpeg', 'image/png', 'image/gif'],
+  DOCUMENT: ['application/pdf', 'application/msword'],
+};
+```
+
+**Use Case:**
+- Validates file types during file uploads.
+
+**Example Code:**
+```ts
+import { AcceptedFileTypes } from 'constants/file-types.constant';
+
+const fileType = uploadedFile.mimetype;
+if (!AcceptedFileTypes.IMAGE.includes(fileType)) {
+  throw new Error('Invalid file type. Only images are allowed.');
+}
+```
+
+---
+
+### **9. `currency.constant.ts`**
+
+**Purpose:**
+- Define constants for currency-related operations, like default currency or supported currencies.
+
+**Example Use:**
+```ts
+export const CurrencyConstants = {
+  DEFAULT_CURRENCY: 'USD',
+  SUPPORTED_CURRENCIES: ['USD', 'EUR', 'GBP'],
+};
+```
+
+**Use Case:**
+- Helps with managing currency in financial applications, especially in e-commerce.
+
+**Example Code:**
+```ts
+import { CurrencyConstants } from 'constants/currency.constant';
+
+const userCurrency = user.preferredCurrency || CurrencyConstants.DEFAULT_CURRENCY;
+```
+
+---
+
+### **Additional Real-World Constants**
+
+Here are some additional constants that could be useful in a real-world application:
+
+---
+
+### **10. `error-codes.constant.ts`**
+
+**Purpose:**
+- Store predefined error codes used across the application.
+
+```ts
+export const ErrorCodes = {
+  USER_NOT_FOUND: 'USER_NOT_FOUND',
+  INVALID_CREDENTIALS: 'INVALID_CREDENTIALS',
+  DATABASE_ERROR: 'DATABASE_ERROR',
+};
+```
+
+**Use Case:**
+- Useful for error handling and generating consistent error responses.
+
+**Example Code:**
+```ts
+import { ErrorCodes } from 'constants/error-codes.constant';
+
+throw new Error(`Error occurred: ${ErrorCodes.USER_NOT_FOUND}`);
+```
+
+---
+
+### **11. `cache-keys.constant.ts`**
+
+**Purpose:**
+- Store cache keys for Redis or other caching systems.
+
+```ts
+export const CacheKeys = {
+  USER_PROFILE: 'USER_PROFILE_',
+  ORDER_DETAILS: 'ORDER_DETAILS_',
+};
+```
+
+**Use Case:**
+- Helps in cache management, ensuring the same cache keys are used consistently.
+
+**Example Code:**
+```ts
+import { CacheKeys } from 'constants/cache-keys.constant';
+
+const userProfileCacheKey = CacheKeys.USER_PROFILE + userId;
+```
+
+---
+
+### **12. `social-media.constant.ts`**
+
+**Purpose:**
+- Define social media constants (like URLs, API keys, or platform names).
+
+```ts
+export const SocialMediaConstants = {
+  FACEBOOK_URL: 'https://www.facebook.com/',
+  TWITTER_URL: 'https://www.twitter.com/',
+};
+```
+
+**Use Case:**
+- Use these constants when sharing or integrating with social media platforms.
+
+**Example Code:**
+```ts
+import { SocialMediaConstants } from 'constants/social-media.constant';
+
+const facebookLink = `${SocialMediaConstants.FACEBOOK_URL}${user.username}`;
+```
+
+---
+
+### **How to Use These Constants:**
+
+#### 1. **Using Constants in a Service:**
+
+```ts
+// src/payment/payment.service.ts
+
+import { CurrencyConstants } from 'constants/currency.constant';
+
+@Injectable()
+export class PaymentService {
+  processPayment(amount: number, currency: string = CurrencyConstants.DEFAULT_CURRENCY) {
+    if (!CurrencyConstants.SUPPORTED_CURRENCIES.includes(currency)) {
+      throw new Error('Unsupported currency');
+    }
+    // Process payment logic...
+  }
+}
+```
+
+#### 2. **Using Constants in Middleware/Guards:**
+
+```ts
+// src/auth/jwt.guard.ts
+
+import { HttpStatusCodes } from 'constants/http-status-codes.constant';
+
+@Injectable()
+export class JwtGuard implements CanActivate {
+  canActivate(context: ExecutionContext): boolean {
+    const request = context.switchToHttp().getRequest();
+    if (!request.headers['authorization']) {
+      throw new UnauthorizedException({
+        statusCode: HttpStatusCodes.UNAUTHORIZED,
+        message: 'Unauthorized access',
+      });
+    }
+    // Validate JWT token...
+    return true;
+  }
+}
+```
+
+---
+
+###More Additional Constants
+---
+
+### **1. `http-status-codes.constant.ts`**
+
+**Purpose:**  
+Define HTTP status codes to standardize responses across the application.
+
+```ts
+// http-status-codes.constant.ts
+
+export const HttpStatusCodes = {
+  // 2xx series: Success responses
+  OK: 200, // The request was successful
+  CREATED: 201, // Resource was successfully created
+  ACCEPTED: 202, // The request has been accepted but not completed yet
+  NO_CONTENT: 204, // The server successfully processed the request but there's no content to return
+
+  // 4xx series: Client error responses
+  BAD_REQUEST: 400, // The request was malformed or invalid
+  UNAUTHORIZED: 401, // The request lacks proper authentication
+  FORBIDDEN: 403, // The server refuses to authorize the request
+  NOT_FOUND: 404, // The requested resource could not be found
+
+  // 5xx series: Server error responses
+  INTERNAL_SERVER_ERROR: 500, // The server encountered an error processing the request
+};
+```
+
+**How to use:**
+
+```ts
+// Example in a response object
+
+import { HttpStatusCodes } from 'constants/http-status-codes.constant';
+
+const response = {
+  status: HttpStatusCodes.OK, // Using the constant for HTTP status code
+  message: 'Request was successful',
+};
+```
+
+---
+
+### **2. `roles.constant.ts`**
+
+**Purpose:**  
+Define roles in the application for access control.
+
+```ts
+// roles.constant.ts
+
+export const UserRoles = {
+  ADMIN: 'admin', // Administrator role with full access
+  USER: 'user', // Regular user role
+  MODERATOR: 'moderator', // Moderator role with some privileges
+  GUEST: 'guest', // A guest role with limited access
+};
+```
+
+**How to use:**
+
+```ts
+// Example in a guard to restrict access based on roles
+
+import { UserRoles } from 'constants/roles.constant';
+
+if (user.role === UserRoles.ADMIN) {
+  // Grant access to admin routes or resources
+}
+```
+
+---
+
+### **3. `config.constant.ts`**
+
+**Purpose:**  
+Store configuration constants like base URLs, API versions, and environment details.
+
+```ts
+// config.constant.ts
+
+export const ConfigConstants = {
+  ENVIRONMENT: process.env.NODE_ENV || 'development', // The environment (dev, prod, etc.)
+  API_VERSION: 'v1', // API version
+  BASE_URL: process.env.BASE_URL || 'http://localhost:3000', // Base URL for API
+};
+```
+
+**How to use:**
+
+```ts
+// Example usage to build an API URL dynamically
+
+import { ConfigConstants } from 'constants/config.constant';
+
+const apiUrl = `${ConfigConstants.BASE_URL}/api/${ConfigConstants.API_VERSION}`; // Constructing full API URL
+```
+
+---
+
+### **4. `message.constant.ts`**
+
+**Purpose:**  
+Store standard messages that are returned in the responses to the user.
+
+```ts
+// message.constant.ts
+
+export const Messages = {
+  SUCCESS: 'Operation completed successfully.',
+  ERROR: 'An unexpected error occurred.',
+  INVALID_INPUT: 'Invalid input data provided.',
+  USER_NOT_FOUND: 'User not found.',
+  UNAUTHORIZED_ACCESS: 'Unauthorized access attempt.',
+};
+```
+
+**How to use:**
+
+```ts
+// Example of using standard messages in a response object
+
+import { Messages } from 'constants/message.constant';
+
+const response = {
+  status: 'success',
+  message: Messages.SUCCESS, // Using a predefined success message
+};
+```
+
+---
+
+### **5. `pagination.constant.ts`**
+
+**Purpose:**  
+Define constants related to pagination like default page size and maximum allowed page size.
+
+```ts
+// pagination.constant.ts
+
+export const PaginationConstants = {
+  DEFAULT_PAGE_SIZE: 10, // Default page size when not specified
+  MAX_PAGE_SIZE: 100, // Maximum page size allowed
+};
+```
+
+**How to use:**
+
+```ts
+// Example in pagination logic for API requests
+
+import { PaginationConstants } from 'constants/pagination.constant';
+
+const pageSize = request.query.pageSize || PaginationConstants.DEFAULT_PAGE_SIZE; // Default to 10 if not specified
+```
+
+---
+
+### **6. `environment.constant.ts`**
+
+**Purpose:**  
+Define environment-specific constants like different URLs for different environments.
+
+```ts
+// environment.constant.ts
+
+export const EnvironmentConstants = {
+  DEVELOPMENT_API_URL: 'http://dev.api.example.com', // Dev API URL
+  PRODUCTION_API_URL: 'http://api.example.com', // Prod API URL
+  DATABASE_URL: process.env.DATABASE_URL, // Database URL
+};
+```
+
+**How to use:**
+
+```ts
+// Example to dynamically choose the correct URL based on the environment
+
+import { EnvironmentConstants } from 'constants/environment.constant';
+
+const apiUrl =
+  process.env.NODE_ENV === 'production'
+    ? EnvironmentConstants.PRODUCTION_API_URL // Use prod URL in production
+    : EnvironmentConstants.DEVELOPMENT_API_URL; // Use dev URL in development
+```
+
+---
+
+### **7. `email-templates.constant.ts`**
+
+**Purpose:**  
+Store predefined email subjects and body templates for different actions like registration and password reset.
+
+```ts
+// email-templates.constant.ts
+
+export const EmailTemplates = {
+  WELCOME_SUBJECT: 'Welcome to our platform!', // Subject for welcome emails
+  PASSWORD_RESET_SUBJECT: 'Password Reset Request', // Subject for password reset
+  WELCOME_BODY: 'Hello {{username}}, welcome to our platform!', // Body template for welcome email
+  PASSWORD_RESET_BODY: 'Click here to reset your password: {{resetLink}}', // Body template for password reset
+};
+```
+
+**How to use:**
+
+```ts
+// Example of sending an email using predefined templates
+
+import { EmailTemplates } from 'constants/email-templates.constant';
+
+const emailSubject = EmailTemplates.WELCOME_SUBJECT; // Get the welcome email subject
+const emailBody = EmailTemplates.WELCOME_BODY.replace('{{username}}', user.name); // Replace placeholders in the body template
+```
+
+---
+
+### **8. `file-types.constant.ts`**
+
+**Purpose:**  
+Define allowed file types for uploads (e.g., images, documents).
+
+```ts
+// file-types.constant.ts
+
+export const AcceptedFileTypes = {
+  IMAGE: ['image/jpeg', 'image/png', 'image/gif'], // Allowed image MIME types
+  DOCUMENT: ['application/pdf', 'application/msword'], // Allowed document MIME types
+};
+```
+
+**How to use:**
+
+```ts
+// Example of validating file types during an upload
+
+import { AcceptedFileTypes } from 'constants/file-types.constant';
+
+const fileType = uploadedFile.mimetype;
+if (!AcceptedFileTypes.IMAGE.includes(fileType)) { // Check if uploaded file is an allowed image
+  throw new Error('Invalid file type. Only images are allowed.');
+}
+```
+
+---
+
+### **9. `currency.constant.ts`**
+
+**Purpose:**  
+Store constants related to currency, such as default currency and supported currencies.
+
+```ts
+// currency.constant.ts
+
+export const CurrencyConstants = {
+  DEFAULT_CURRENCY: 'USD', // Default currency used
+  SUPPORTED_CURRENCIES: ['USD', 'EUR', 'GBP'], // List of supported currencies
+};
+```
+
+**How to use:**
+
+```ts
+// Example of using constants to handle currency logic
+
+import { CurrencyConstants } from 'constants/currency.constant';
+
+const userCurrency = user.preferredCurrency || CurrencyConstants.DEFAULT_CURRENCY; // Use user's preferred currency or fallback to default
+```
+
+---
+
+### **Additional Real-World Constants**
+
+---
+
+### **10. `error-codes.constant.ts`**
+
+**Purpose:**  
+Define application-specific error codes for uniform error handling.
+
+```ts
+// error-codes.constant.ts
+
+export const ErrorCodes = {
+  USER_NOT_FOUND: 'USER_NOT_FOUND', // User not found in the database
+  INVALID_CREDENTIALS: 'INVALID_CREDENTIALS', // Invalid username/password combination
+  DATABASE_ERROR: 'DATABASE_ERROR', // Database related issues
+};
+```
+
+**How to use:**
+
+```ts
+// Example of throwing errors with predefined error codes
+
+import { ErrorCodes } from 'constants/error-codes.constant';
+
+throw new Error(`Error occurred: ${ErrorCodes.USER_NOT_FOUND}`); // Use predefined error code for consistency
+```
+
+---
+
+### **11. `cache-keys.constant.ts`**
+
+**Purpose:**  
+Define keys for caching systems (e.g., Redis).
+
+```ts
+// cache-keys.constant.ts
+
+export const CacheKeys = {
+  USER_PROFILE: 'USER_PROFILE_', // Cache key for user profile data
+  ORDER_DETAILS: 'ORDER_DETAILS_', // Cache key for order data
+};
+```
+
+**How to use:**
+
+```ts
+// Example of caching user profile data
+
+import { CacheKeys } from 'constants/cache-keys.constant';
+
+const userProfileCacheKey = CacheKeys.USER_PROFILE + userId; // Use the cache key to store/retrieve data
+```
+
+---
+
+### **12. `social-media.constant.ts`**
+
+**Purpose:**  
+Define constants for social media URLs or API keys.
+
+```ts
+// social-media.constant.ts
+
+export const SocialMediaConstants = {
+  FACEBOOK_URL: 'https://www.facebook.com/', // Facebook URL template
+  TWITTER_URL: 'https://www.twitter.com/', // Twitter URL template
+};
+```
+
+**How to use:**
+
+```ts
+// Example of using social media constants
+
+import { SocialMediaConstants } from 'constants/social-media.constant';
+
+const facebookLink = `${SocialMediaConstants.FACEBOOK_URL}${user.username}`; // Create Facebook profile link
+```
+
+---
+
+### **How to Use These Constants in Modules:**
+
+```ts
+// In a service or controller
+
+import { UserRoles } from 'constants/roles.constant'; // Import the roles constant
+
+if (user.role === UserRoles.ADMIN) {
+  // Grant access to admin functionality
+}
+```
+---
