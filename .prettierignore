@@ -1,0 +1,29 @@
+# Ignore build output
+
+dist/
+build/
+
+# Ignore minified files
+
+*.min.js
+
+# Ignore compiled assets
+
+*.bundle.js
+
+# Ignore node_modules just to be safe (Prettier skips it by default)
+
+node_modules/
+
+# Ignore all environment files
+
+.env
+*.env
+
+# Ignore specific config files
+
+webpack.config.js
+
+# Ignore specific file
+
+src/mocks/third-party-response.ts
