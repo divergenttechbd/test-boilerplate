@@ -2,7 +2,7 @@
 /dist
 /node_modules
 /build
-__.git
+
 # Ignore everything in the assets/generated directory
 /src/assets/generated/*
 # If assets/ is in project root.
